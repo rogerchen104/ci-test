@@ -24,7 +24,7 @@ deploy:
     bucket: "roger-test-codedeploy"
     key: latest.zip
     application: 0608-deploy
-    deployment_group: master
+    deployment_group: 0608-deploy-group
     region: us-east-2
     on:
       branch: master

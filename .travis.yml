@@ -1,0 +1,29 @@
+language: php
+os:
+- linux
+before_deploy:
+  - zip -r latest *
+  - test -d dpl_cd_upload || mkdir dpl_cd_upload
+  - mv latest.zip dpl_cd_upload/latest.zip
+deploy:
+  - provider: s3
+    access_key_id: $access-key
+    secret_access_key:
+      secure: $secret-access-key
+    local_dir: dpl_cd_upload
+    skip_cleanup: true
+    region: us-east-2
+    on:
+      branch: master
+    bucket: "roger-test-codedeploy"
+  - provider: codedeploy
+    access_key_id: $access-key
+    secret_access_key:
+      secure: $secret-access-key
+    bucket: "roger-test-codedeploy"
+    key: latest.zip
+    application: 0608-deploy
+    deployment_group: master
+    region: us-west-2
+    on:
+      branch: master

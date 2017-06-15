@@ -8,9 +8,9 @@ before_deploy:
   - mv latest.zip dpl_cd_upload/latest.zip
 deploy:
   - provider: s3
-    access_key_id: $access_key
+    access_key_id: $awskey
     secret_access_key:
-      secure: $secret_access_key
+      secure: $awskey_secure
     local_dir: dpl_cd_upload
     skip_cleanup: true
     region: us-east-2
@@ -18,9 +18,9 @@ deploy:
       branch: master
     bucket: "roger-test-codedeploy"
   - provider: codedeploy
-    access_key_id: $access_key
+    access_key_id: $awskey
     secret_access_key:
-      secure: $secret_access_key
+      secure: $awskey_secure
     bucket: "roger-test-codedeploy"
     key: latest.zip
     application: 0608-deploy
